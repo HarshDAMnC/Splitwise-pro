@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Splitwise Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="topbar">
+        <div class="logo">Splitwise</div>
+        <div class="header-right">
+            <span id="current-user-display" style="font-weight: 600;">System User</span>
+        </div>
+    </header>
+
+    <div class="layout">
+        <!-- LEFT SIDEBAR: GROUPS -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>GROUPS <button id="btn-new-group" class="btn-micro" title="Add Group">+</button></h3>
+                <ul id="groups-list">
+                    <li>Loading groups...</li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <h3>USERS <button id="btn-new-user" class="btn-micro" title="Add User">+</button></h3>
+                <ul id="users-list">
+                    <li>Loading users...</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- CENTER MAIN: EXPENSES -->
+        <main class="center-content">
+            <div class="group-header">
+                <h1 id="active-group-name">Select a Group</h1>
+                <div class="actions">
+                    <button class="btn btn-orange" id="btn-add-expense">Add an expense</button>
+                    <button class="btn btn-teal" id="btn-settle-up">Settle up</button>
+                </div>
+            </div>
+            
+            <div class="expenses-list" id="expenses-container">
+                <div class="empty-state">No group selected or no expenses yet.</div>
+            </div>
+        </main>
+
+        <!-- RIGHT SIDEBAR: BALANCES -->
+        <aside class="right-sidebar">
+            <div class="balance-header">
+                <h3>GROUP BALANCES</h3>
+                <button id="btn-refresh-balances" class="btn-micro" title="Recalculate Graph">↻</button>
+            </div>
+            <ul id="balances-list" class="balances-list">
+                <li class="empty-state">Select a group to view balances.</li>
+            </ul>
+        </aside>
+    </div>
+
+    <!-- MODALS -->
+    <!-- Add Expense Modal -->
+    <div id="modal-expense" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add an expense</h2>
+                <span class="close-btn" onclick="closeModals()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="exp-desc" placeholder="Enter a description (e.g. Dinner)">
+                </div>
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="exp-amount" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label>Paid by</label>
+                    <select id="exp-payer"></select>
+                </div>
+                <div class="form-group split-section" style="background:#f4f5f5; padding:10px; border-radius:4px;">
+                    <label style="margin-bottom:10px; font-weight:600;">Split Exactly (Enter Owed Amounts):</label>
+                    <div id="split-users-container"></div>
+                </div>
+                <button id="submit-expense" class="btn btn-orange" style="width: 100%; margin-top: 10px;">Save Expense</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settle Up Modal -->
+    <div id="modal-settle" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settle up</h2>
+                <span class="close-btn" onclick="closeModals()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <select id="settle-payer"></select>
+                </div>
+                <div style="text-align:center; font-weight: 600; color:#5bc5a7; padding: 10px 0;">paid</div>
+                <div class="form-group">
+                    <select id="settle-payee"></select>
+                </div>
+                <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" id="settle-amount" placeholder="0.00">
+                </div>
+                <button id="submit-settlement" class="btn btn-teal" style="width: 100%; margin-top: 20px;">Save Payment</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
